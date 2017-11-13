@@ -541,10 +541,10 @@
                     this.rotation = Math.min((this.velocity / 10) * 90, 90);
                 }
                 if (FB.Input.tapped) {
-                    this.play = true;
-                    play_sound(soundJump);
-                    this.velocity = this.jump;
-                }
+			this.play = true;
+	                play_sound(soundJump);
+        	        this.velocity = this.jump;
+		} 
             };
 
             this.render = function () {
@@ -553,6 +553,15 @@
             }
 
         }
+
+window.onQuartersCallback = function(data){ 
+    console.log(data.txId);
+    if (data.txId != undefined) {
+  	FB.changeState('Play'); 
+	FB.Input.tapped = true;
+    }
+}
+
 
         FB.Particle = function (x, y, r, col, type) {
 
@@ -681,8 +690,9 @@
                     FB.entities[i].update();                    
                 }
 				if (FB.Input.tapped) {
-					FB.changeState('Play');
-					FB.Input.tapped = false;
+					document.querySelectorAll('.buy-quarters-button')[0].click();
+					//FB.changeState('Play');
+					//FB.Input.tapped = false;
 				}
 			}
 			
@@ -853,6 +863,25 @@
         window.addEventListener('load', FB.init, false);
         window.addEventListener('resize', FB.resize, false);
     </script>
+
+<button
+  class="buy-quarters-button"
+  data-widget-type="button"
+  data-order-name="Play game"
+  data-order-description="Play Game"
+  data-order-code=""
+  data-amount="4"
+  data-button-size="medium"
+  data-button-type="black"
+  style="display: none;">
+  Play with quarters
+</button>
+
+<script src="https://dev.pocketfulofquarters.com/embeds/button.js"
+    data-script-name="quarters-embeds"
+    data-app-id="U9dpxvd5XGlYAgJ7BBNt"
+    data-app-key="ftflp75hi1iaiyi12lhyxha1rx4pvnsd7"
+    charset="utf-8"></script>
 
 </body>
 
